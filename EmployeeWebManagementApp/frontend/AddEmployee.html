@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=0, shrink-to-fit=no">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <script>
+            var app = angular.module('myApp', []);
+            app.controller('MainController', function($scope, $http){
+                $scope.sendData = function(){
+                    var data = {
+                        firstName : $scope.firstName,
+                        lastName : $scope.lastName,
+                        gender : $scope.gender,
+                        age : $scope.age,
+                        dob : $scope.dob.toISOString().split('T')[0]
+                    }
+                    console.log(data);
+                    $http.post('http://localhost:8080/api/saveEmployee', data,{
+                        headers : {
+                            'Content-Type' : 'application/json'
+                        }
+                    }).then(function(response){
+                        alert('Added Employee successfully');
+                        console.log(response.data);
+                    },function(error){
+                        console.error(error);
+                        
+                    })
+                };
+                $scope.employeeList = [];
+                $http.get('http://localhost:8080/api/getAllEmployee')
+                .then(function(response){
+                    $scope.employeeList = response.data;
+                    console.log(response.data);
+                }, function(error){
+                    console.error(error);
+                })
+            });
+        </script>
+    </head>
+    <body>
+        <div class="container frontPage" ng-controller="MainController">
+            <form class="text-center postForm">
+                <div class="pt-4 text-light">
+                    <h4>Enter details of new employee</h4>
+                </div>
+                <div class="py-4 text-start text-light textboxdiv">
+                    <div class="flexContainer">
+                    <div>
+                        <label class="py-2" for="firstName">First Name</label><br>
+                        <input class="p-1" type="text" name="firstName" id="firstName" ng-model="firstName">
+                    </div>
+                    <div>
+                        <label class="py-2" for="lastName">Last Name</label><br>
+                        <input class="p-1 border-0" type="text" name="lastName" id="lastName" ng-model="lastName">
+                    </div>
+                    <div>
+                        <label class="py-2" for="gender">Gender</label><br>
+                        <input class="p-1 border-0" type="text" name="gender" id="gender" ng-model="gender">
+                    </div>
+                    <div>
+                        <label class="py-2" for="age">Age</label><br>
+                        <input class="p-1 border-0" type="number" name="age" id="age" ng-model="age">
+                    </div>
+                    <div>
+                        <label class="py-2" for="dob">Date Of Birth</label><br>
+                        <input class="p-1 border-0" type="date" name="dob" id="dob" ng-model="dob">
+                    </div>
+                    <div class="text-end">
+                        <button class="p-2 btn border-0 mt-2 subbtn" type="button" ng-click="sendData()">Submit</button>
+                    </div>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <button class="btn border-0 gobackbtn" onclick="myFunc()">Get Update List</button>
+                </div>
+            </form>
+            <div class="container-fluid getEmp text-center" ng-controller="MainController">
+                <div class="container m-auto">
+                    <div>
+                        <table>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Gender</th>
+                                <th>DOB</th>
+                            </tr>
+                            <tr ng-repeat="employee in employeeList">
+                                <td> {{ employee.id }} </td>
+                                <td> {{ employee.firstName }}  {{employee.lastName}} </td>
+                                <td> {{ employee.age }} </td>
+                                <td> {{ employee.gender }} </td>
+                                <td> {{ employee.dob }} </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn border-0 gobackbtn" onclick="myFunc()">Go back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function myFunc(){
+                var x = document.querySelector('.getEmp');
+                if(x.style.display === 'none'){
+                    x.style.display = 'block';
+                } else{
+                    x.style.display = 'none';
+                }
+
+                var y = document.querySelector('.postForm');
+                if(y.style.display === 'block'){
+                    y.style.display = 'none';
+                } else{
+                    y.style.display = 'block';
+                }
+            }
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    </body>
+</html>

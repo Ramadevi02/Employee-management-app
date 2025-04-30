@@ -1,0 +1,106 @@
+table, tr, th, td{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+.frontPage{
+    background-image: url('WebBackgroundImg.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+    position: relative;
+    display: block;
+}
+.getAllEmployee{
+    display: none;
+}
+.getAllEmployee div {
+    padding-top: 3rem;
+    overflow-x: auto;
+}
+.delEmployee div{
+    padding-top: 3rem;
+    overflow-x: auto;
+}
+.upEmp div{
+    padding-top: 3rem;
+    overflow-x: auto;
+}
+.getEmp div{
+    padding-top: 3rem;
+    overflow-x: auto;
+}
+table {
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.92);
+    border-radius: 12px;
+}
+th, td{
+    padding: 20px;
+    border: 1px solid #ccc;
+    color: #222;
+}
+th{
+    background-color: #1976d2;
+    color: white;
+    font-weight: bold;
+}
+tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+tr:hover{
+    background-color: #e0f0ff;
+}
+.gobackbtn{
+    padding: 10px 20px;
+    background-color: #1976d2;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+}
+.gobackbtn:hover{
+    background-color: #1258a0;
+}
+.frontPage div h3 {
+    margin-top: 2rem;
+    color: white;
+}
+.buttons div{
+    margin-top: 1rem;
+}
+.addbtn, .delbtn, .upbtn, .getbtn{
+    padding: 1rem;
+    background-color: rgba(15, 15, 15, 0.4);
+    color: white;
+}
+.textboxdiv{
+    width : 60%;
+    margin: auto;
+    background-color: rgba(15, 15, 15, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+label{
+    font-weight: bold;
+}
+.subbtn{
+    background-color:white;
+    color: black;
+    font-weight: bold;
+}
+.delEmployee{
+    display: none;
+}
+.upEmp{
+    display : none;
+}
+.getEmp{
+    display: none;
+}
+
+
